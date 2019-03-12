@@ -1,0 +1,3 @@
+rootProject.name = 'LutoBookApp'
+
+include ':app'
