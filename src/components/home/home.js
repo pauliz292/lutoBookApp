@@ -13,7 +13,7 @@ class Home extends Component {
                 <View style={styles.banner}>
                     <Image 
                         style={styles.image}
-                        source={{ uri: 'https://picsum.photos/g/' }}
+                        source={require('../../static/images/banner.jpeg')}
                     />
                 </View>
                 <View style={styles.linksContainer}>

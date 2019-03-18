@@ -6,6 +6,7 @@ import { Link } from 'react-router-native';
 // styles import
 import styles from './styles';
 import BackButton from '../_common/back';
+import RecipesCard from './recipesCard';
 
 class Recipes extends Component {
     state = {
@@ -25,17 +26,17 @@ class Recipes extends Component {
                     
                 </View>
                 <BackButton />
-                <View style={{ marginTop: 30}}>
+                <View style={styles.content}>
                     <SearchBar
                         lightTheme={true}
-                        style={{ height: 20 }}
+                        style={{ height: 50 }}
                         placeholder="Type Here..."
                         onChangeText={this.updateSearch}
                         value={search}
                     />
                 </View>
-                <View style={{ marginTop: 50}}>
-
+                <View style={styles.content}>
+                    <RecipesCard />
                 </View>
             </View>
         );

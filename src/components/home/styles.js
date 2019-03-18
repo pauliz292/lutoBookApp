@@ -9,24 +9,25 @@ const styles = StyleSheet.create({
     },
     banner: {
         width: Dimensions.get('window').width,
-        height: 400,
+        height: 500,
         backgroundColor: 'gray',
     },
     image: {
         width: Dimensions.get('window').width,
-        height: 400,
+        height: 500,
     },
     linksContainer: {
-        height: 100,
+        height: 50,
         backgroundColor: 'steelblue',
         width: Dimensions.get('window').width,
         marginTop: 30,
         alignItems: 'center',
         justifyContent: 'center',
+        zIndex: 200,
     },
     linkText: {
         color: '#fff',
-        marginTop: 10,
+        marginTop: 0,
         fontSize: 18,
     },  
 })

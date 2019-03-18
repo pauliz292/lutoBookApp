@@ -16,6 +16,17 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         height: 400,
     },
+    content: {
+        marginTop: 30,
+        height: 50,
+    },
+    buttonStyle: {
+        borderRadius: 10,
+        marginLeft: 0,
+        marginRight: 0,
+        marginBottom: 10,
+        height: 50,
+    },
 })
 
 export default styles
