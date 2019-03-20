@@ -1,43 +1,53 @@
 import React, { Component } from 'react';
-import { Text, Image, View } from 'react-native';
+import { Text, Image, View, Dimensions } from 'react-native';
 import { Card, Button, Icon, ListItem } from 'react-native-elements';
+import { TabView, SceneMap } from 'react-native-tab-view';
 import styles from './styles';
+import Snacks from './snacks';
+import Desserts from './desserts';
+import Entree from './entree';
+import Sides from './sides';
+
+const _Snacks = () => (
+    <Snacks />
+);
+
+const _Desserts = () => (
+    <Desserts />
+);
+
+const _Entree = () => (
+    <Entree />
+);
+
+const _Sides = () => (
+    <Sides />
+);
 
 class RecipesCard extends Component {
+    state = {
+        index: 0,
+        routes: [
+            { key: 1, title: 'Snacks' },
+            { key: 2, title: 'Dessert' },
+            { key: 3, title: 'Entree' },
+            { key: 4, title: 'Sides' },
+        ],
+    };
+
     render() {
         return (
-            <Card containerStyle={{ padding: 0 }} style={{ marginTop: 50, height: 600}}>
-                <ListItem 
-                    style={{ height: 100 }}
-                    title="Matcha Cake" 
-                    subtitle={
-                        <View style={{ height: 50 }}>
-                            <Text>Matcha chocolate</Text>
-                            <Button
-                                title="Clear button"
-                            />
-                        </View>
-                    }
-                    leftAvatar={{ source: { uri: 'https://picsum.photos/g/100/' }}} />
-                <ListItem 
-                    style={{ height: 100 }}
-                    title="Matcha Cake" 
-                    subtitle={
-                        <Button
-                            title="Clear button"
-                        />
-                    }
-                    leftAvatar={{ uri: 'https://picsum.photos/g/100/' }} />
-                <ListItem 
-                    style={{ height: 100 }}
-                    title="Matcha Cake" 
-                    subtitle={
-                        <Button
-                            title="Clear button"
-                        />
-                    }
-                    leftAvatar={{ uri: 'https://picsum.photos/g/100/' }} />
-            </Card>
+            <TabView 
+                navigationState={this.state}
+                renderScene={SceneMap({
+                    1: _Snacks,
+                    2: _Desserts,
+                    3: _Entree,
+                    4: _Sides,
+                })}
+                onIndexChange={index => this.setState({ index })}
+                initialLayout={{ width: Dimensions.get('window').width }}
+            />
         );
     }
 }

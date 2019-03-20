@@ -26,7 +26,7 @@ class Recipes extends Component {
                     
                 </View>
                 <BackButton />
-                <View style={styles.content}>
+                <View style={styles.search}>
                     <SearchBar
                         lightTheme={true}
                         style={{ height: 50 }}
