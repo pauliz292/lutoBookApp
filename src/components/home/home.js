@@ -27,7 +27,7 @@ class Home extends Component {
                     </Link>
                 </View>
                 <View style={styles.linksContainer}>
-                    <Link to="/mealplanner">
+                    <Link to="/login">
                         <Text style={styles.linkText}>Meal Planner</Text>
                     </Link>
                 </View>
