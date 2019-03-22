@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { SearchBar } from 'react-native-elements';
-import { Link } from 'react-router-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { SearchBar, Image } from 'react-native-elements';
 
 // styles import
-import styles from './styles';
+//import styles from './styles';
 import BackButton from '../_common/back';
 import RecipesCard from './recipesCard';
 
@@ -21,21 +20,26 @@ class Recipes extends Component {
         const { search } = this.state;
 
         return (
-            <View style={styles.container}>
-                <View style={styles.banner}>
-                    
+            <View style={{ height: Dimensions.get("window").height }}>
+                <View style={{ height: '20%' }}>
+                    <Image
+                        style={{ height: 90 }}   
+                        source={require('../../static/images/banner.jpeg')}
+                    />
+                    <View style={{ height: 20 }}>
+                        <BackButton />
+                    </View>
                 </View>
-                <BackButton />
-                <View style={styles.search}>
+                <View style={{ height: '10%' }}>
                     <SearchBar
+                        style={{ height: 20 }}
                         lightTheme={true}
-                        style={{ height: 50 }}
                         placeholder="Type Here..."
                         onChangeText={this.updateSearch}
                         value={search}
                     />
                 </View>
-                <View style={styles.content}>
+                <View style={{ height: '70%' }}>
                     <RecipesCard />
                 </View>
             </View>

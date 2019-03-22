@@ -3,13 +3,13 @@ import { Text, Image, View, Dimensions } from 'react-native';
 import { Card, Button, Icon, ListItem } from 'react-native-elements';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import styles from './styles';
-import Snacks from './snacks';
+import Organic from './organic';
 import Desserts from './desserts';
 import Entree from './entree';
 import Sides from './sides';
 
-const _Snacks = () => (
-    <Snacks />
+const _Organic = () => (
+    <Organic />
 );
 
 const _Desserts = () => (
@@ -28,7 +28,7 @@ class RecipesCard extends Component {
     state = {
         index: 0,
         routes: [
-            { key: 1, title: 'Snacks' },
+            { key: 1, title: 'Organic' },
             { key: 2, title: 'Dessert' },
             { key: 3, title: 'Entree' },
             { key: 4, title: 'Sides' },
@@ -40,7 +40,7 @@ class RecipesCard extends Component {
             <TabView 
                 navigationState={this.state}
                 renderScene={SceneMap({
-                    1: _Snacks,
+                    1: _Organic,
                     2: _Desserts,
                     3: _Entree,
                     4: _Sides,

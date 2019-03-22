@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Card, Button, Icon, ListItem } from 'react-native-elements';
 
-class Snacks extends Component {
+class Organic extends Component {
     render() {
         return (
             <Card containerStyle={{ padding: 0 }} style={{ marginTop: 50, height: 600}}>
@@ -23,4 +23,4 @@ class Snacks extends Component {
     }
 }
 
-export default Snacks;
+export default Organic;
