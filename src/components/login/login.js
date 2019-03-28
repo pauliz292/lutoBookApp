@@ -36,7 +36,7 @@ class Login extends Component {
                     <Link to="/register" style={[styles.buttonContainer, styles.registerButton]}>
                         <Text style={styles.buttonText}>Register</Text>    
                     </Link>
-                    <View style={{ height: 20 }}>
+                    <View style={{ height: 20, flexDirection: 'row', alignItems: 'space-between', }}>
                         <BackButton />
                     </View>
                 </View>

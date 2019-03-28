@@ -10,26 +10,35 @@ class Home extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.banner}>
-                    <Image 
-                        style={styles.image}
-                        source={require('../../static/images/banner.jpeg')}
-                    />
+                <View style={{ height: '90%' }}>
+                    <View style={styles.banner}>
+                        <Image 
+                            style={styles.image}
+                            source={require('../../static/images/banner.jpeg')}
+                        />
+                    </View>
+                    <View style={styles.linksContainer}>
+                        <Link to="/recipes">
+                            <Text style={styles.linkText}>Recipes</Text>
+                        </Link>
+                    </View>
+                    <View style={styles.linksContainer}>
+                        <Link to="/location">
+                            <Text style={styles.linkText}>Location Service</Text>
+                        </Link>
+                    </View>
+                    <View style={styles.linksContainer}>
+                        <Link to="/login">
+                            <Text style={styles.linkText}>Meal Planner</Text>
+                        </Link>
+                    </View>
                 </View>
-                <View style={styles.linksContainer}>
-                    <Link to="/recipes">
-                        <Text style={styles.linkText}>Recipes</Text>
-                    </Link>
-                </View>
-                <View style={styles.linksContainer}>
-                    <Link to="/location">
-                        <Text style={styles.linkText}>Location Service</Text>
-                    </Link>
-                </View>
-                <View style={styles.linksContainer}>
-                    <Link to="/login">
-                        <Text style={styles.linkText}>Meal Planner</Text>
-                    </Link>
+                <View style={{ height: '10%'}}>
+                    <View style={styles.box}>
+                        <Link to="/dashboard" style={{ margin: 10 }}>
+                            <Text style={styles.text}>For Capstone Usage 2019 - AMA Computer College</Text>
+                        </Link>
+                    </View>
                 </View>
             </View>
         );

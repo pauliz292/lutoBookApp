@@ -2,19 +2,19 @@ import { StyleSheet, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: Dimensions.get('window').height,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'stretch',
     },
     banner: {
         width: Dimensions.get('window').width,
-        height: 500,
+        height: 200,
         backgroundColor: 'gray',
     },
     image: {
         width: Dimensions.get('window').width,
-        height: 500,
+        height: 200,
     },
     linksContainer: {
         height: 50,
@@ -28,6 +28,16 @@ const styles = StyleSheet.create({
     linkText: {
         color: '#fff',
         marginTop: 0,
+        fontSize: 18,
+    },
+    box: {
+        width: Dimensions.get('window').width,
+        alignSelf: 'center',
+        backgroundColor: 'gray',
+        zIndex: 200,
+    },
+    text: {
+        color: '#fff',
         fontSize: 18,
     },  
 })

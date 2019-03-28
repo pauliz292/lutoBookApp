@@ -8,11 +8,14 @@
     "android": "react-native run-android"
   },
   "dependencies": {
+    "@ingenuity-labs/react-native-api-client-wrapper": "^1.0.7",
+    "axios": "^0.18.0",
     "react": "16.6.3",
     "react-native": "0.58.6",
     "react-native-elements": "^1.1.0",
     "react-native-fontawesome": "^6.0.1",
     "react-native-gesture-handler": "^1.1.0",
+    "react-native-keyboard-aware-scrollview": "^2.0.0",
     "react-native-reanimated": "^1.0.0-alpha.12",
     "react-native-tab-view": "^2.0.3",
     "react-native-vector-icons": "^6.4.1",
