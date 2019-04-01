@@ -8,7 +8,6 @@
     "android": "react-native run-android"
   },
   "dependencies": {
-    "@ingenuity-labs/react-native-api-client-wrapper": "^1.0.7",
     "axios": "^0.18.0",
     "react": "16.6.3",
     "react-native": "0.58.6",

@@ -5,51 +5,104 @@ import {
     StyleSheet,
     Image,
     TextInput,
-    Button,
+    Dimensions,
     KeyboardAvoidingView,
+    AsyncStorage
 } from 'react-native';
 import { Link } from 'react-router-native';
 import BackButton from '../_common/back';
+import * as authService from '../../services/authService';
+
+const localToken = "token";
 
 class Login extends Component {
-    render() {
-        const Form = () => {
-            return (
-                <View style={styles.form}>
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.textBox}
-                            placeholder="username"
-                        />
-                    </View>
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={styles.textBox}
-                            secureTextEntry={true}
-                            placeholder="password"
-                        />
-                    </View>
+    state = {
+        email: '',
+        password: '',
+    };
 
-                    <Link style={[styles.buttonContainer, styles.button]}>
-                        <Text style={styles.buttonText}>Login</Text>    
-                    </Link>
-                    <Link to="/register" style={[styles.buttonContainer, styles.registerButton]}>
-                        <Text style={styles.buttonText}>Register</Text>    
-                    </Link>
-                    <View style={{ height: 20, flexDirection: 'row', alignItems: 'space-between', }}>
-                        <BackButton />
-                    </View>
-                </View>
-            );
+    constructor(props) {
+        super(props);
+        this.emailChange = this.emailChange.bind(this);
+        this.passwordChange = this.passwordChange.bind(this);
+    };
+
+    emailChange(email) {
+        this.setState({ email: email })
+    };
+
+    passwordChange(password) {
+        this.setState({ password: password })
+    };
+
+    handleSubmitLogin = () => {
+        const { email, password } = this.state;
+
+        if (email && password) {
+            authService.AdminLogin(email, password)
+                .then(res => {
+                    console.log(res.data);
+                    if (res.data) {
+                        AsyncStorage.setItem(localToken, res.data);
+                        this.props.history.push("/dashboard");
+                    } else {
+                        alert("Log in failed!")
+                    }
+                });
         }
+    };
 
+    Form = props => {
         return (
-            <View style={styles.container}>
-                <View style={styles.container}>
-                    <Text style={styles.text}>Please log in using your credentials.</Text>
-                    <Form />
+            <View style={styles.form}>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.textBox}
+                        value={props.email}
+                        placeholder="email"
+                        onChangeText={props.emailChange}
+                    />
+                </View>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.textBox}
+                        value={props.password}
+                        secureTextEntry={true}
+                        onChangeText={props.passwordChange}
+                        placeholder="password"
+                    />
+                </View>
+
+                <Link style={[styles.buttonContainer, styles.button]}
+                    onPress={props.handleSubmitLogin}>
+                    <Text style={styles.buttonText}>Login</Text>    
+                </Link>
+                <Link to="/register" style={[styles.buttonContainer, styles.registerButton]}>
+                    <Text style={styles.buttonText}>Register</Text>    
+                </Link>
+                <View style={{ height: 50, alignItems: 'center'}}>
+                    <BackButton />
                 </View>
             </View>
+        );
+    }
+
+    render() {
+        const { email, password } = this.state;
+
+        return (
+            <KeyboardAvoidingView style={styles.container}>
+                <View style={styles.container}>
+                    <Text style={styles.text}>Please log in using your credentials.</Text>
+                    <this.Form  
+                        email={email} 
+                        password={password} 
+                        emailChange={this.emailChange}
+                        passwordChange={this.passwordChange}
+                        handleSubmitLogin={this.handleSubmitLogin}
+                        />
+                </View>
+            </KeyboardAvoidingView>
         );
     }
 }
@@ -58,7 +111,7 @@ export default Login;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: Dimensions.get('window').height,
         alignItems: 'center'
     },
     heading: {

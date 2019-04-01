@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, Picker } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
+import { Link } from 'react-router-native';
+import BackButton from '../_common/back';
 
 class Admin extends Component {
     state = {
-        recipe: [
+        recipe:
             { 
                 id:1, 
                 name:"Melon Shake", 
@@ -14,59 +16,111 @@ class Admin extends Component {
                 categoryId:1,
                 mealtypeId:1,
                 tutorialUrl:"",
-            }
-        ],
+                image:"",
+                ingredients:[
+                    {
+                        name: "",
+                        qty: 0,
+                        unit: ""
+                    }
+                ],
+                locations:[
+                    {
+                        name: "",
+                        address: ""
+                    }
+                ],
+            },
         mealType: [],
         category:[],
-        ingredients:[],
-        locations:[],
+    };
+
+    storeCategory = value => {
+        let recipe = {...this.state.recipe};
+        recipe.categoryId = value;
+        this.setState({ recipe });
+    };
+
+    storeMealType = value => {
+        let recipe = {...this.state.recipe};
+        recipe.mealtypeId = value;
+        this.setState({ recipe }); 
+    };
+
+    handleSaveRecipe() {
+        alert("Recipe Saved!");
     };
 
     render() {
+        const { recipe } = this.state;
+
+        const Form = props => {
+            return (
+                <React.Fragment>
+                    <View style={styles.input}>
+                        <Text style={styles.label}>Name:</Text>
+                        <Input />
+                    </View>
+                    <View style={styles.input}>
+                        <Text style={styles.label}>Description:</Text>
+                        <Input />
+                    </View>
+                    <View style={styles.input}>
+                        <Text style={styles.label}>Instruction:</Text>
+                        <Input />
+                    </View>
+                    <View style={styles.input}>
+                        <Text style={styles.label}>Tutorial:</Text>
+                        <Input />
+                    </View>
+                    <View style={styles.dropdown}>
+                        <Text style={styles.label}>Category:</Text>
+                        <Picker
+                            selectedValue={props.categoryId}
+                            style={{height: 50, width: 200}}
+                            onValueChange={props.storeCategory}>
+                            <Picker.Item label="Luzon" value="-1" />
+                            <Picker.Item label="Visayas" value="-2" />   
+                            <Picker.Item label="Mindanao" value="-3" />
+                        </Picker>
+                    </View>
+                    <View style={styles.dropdown}>
+                        <Text style={styles.label}>Meal Type:</Text>
+                        <Picker
+                            selectedValue={props.mealTypeId}
+                            style={{height: 50, width: 200}}
+                            onValueChange={ props.storeMealType }>
+                            <Picker.Item label="Breakfast" value="-1" />
+                            <Picker.Item label="Lunch" value="-2" />   
+                            <Picker.Item label="Dinner" value="-3" />  
+                        </Picker>
+                    </View>
+                    <View style={styles.linkContainer}>
+                        <Link to="/admin/ingredientsform"> 
+                            <Text style={styles.linkText}>Add Ingredients</Text>
+                        </Link>
+                    </View>
+                    <View style={styles.linkContainer}>
+                        <Link to="/admin/locationsform"> 
+                            <Text style={styles.linkText}>Add Location</Text>
+                        </Link>
+                    </View>
+                    <View style={styles.input}>
+                        <Button title="Save" onPress={this.handleSaveRecipe} />
+                    </View>
+                </React.Fragment>
+            );
+        };
+
         return (
             <KeyboardAwareScrollView style={styles.container}>
-                <View style={styles.input}>
-                    <Text>Name:</Text>
-                    <Input />
-                </View>
-                <View style={styles.input}>
-                    <Text>Description:</Text>
-                    <Input />
-                </View>
-                <View style={styles.input}>
-                    <Text>Instruction:</Text>
-                    <Input />
-                </View>
-                <View style={styles.input}>
-                    <Text>Category:</Text>
-                    <Picker
-                        selectedValue={this.state.language}
-                        style={{height: 50, width: Dimensions.get('window').width}}
-                        onValueChange={(itemValue, itemIndex) =>
-                            this.setState({language: itemValue})
-                    }>
-                        <Picker.Item label="Java" value="java" />
-                        <Picker.Item label="JavaScript" value="js" />   
-                    </Picker>
-                </View>
-                <View style={styles.input}>
-                    <Text>Meal Type:</Text>
-                    <Input />
-                </View>
-                <View style={styles.input}>
-                    <Text>Tutorial:</Text>
-                    <Input />
-                </View>
-                <View style={styles.input}>
-                    <Text>Ingredients:</Text>
-                    <Input />
-                </View>
-                <View style={styles.input}>
-                    <Text>Locations:</Text>
-                    <Input />
-                </View>
-                <View style={styles.input}>
-                    <Button title="Save" />
+                <Form 
+                    storeCategory={this.storeCategory}
+                    storeMealType={this.storeMealType}
+                    mealTypeId={recipe.mealtypeId}
+                    categoryId={recipe.categoryId} />
+                <View style={{ height: 50, alignItems: 'center'}}>
+                    <BackButton />
                 </View>
             </KeyboardAwareScrollView>
         );
@@ -78,8 +132,26 @@ export default Admin;
 const styles = StyleSheet.create({
     container: {
         height: Dimensions.get('window').height,
+        paddingRight: 20,
+        paddingLeft: 20,
     },
     input: {
-        marginTop: 20,
+        marginTop: 10,
+    },
+    dropdown: {
+        width: 80,
+    },
+    label: {
+        fontWeight: "bold",
+        fontSize: 14,
+    },
+    linkContainer: {
+        width: Dimensions.get('window').width,
+        marginTop: 15,
+    },
+    linkText: {
+        color: 'powderblue',
+        fontSize: 18,
+        fontWeight: 'bold',
     },
 })
