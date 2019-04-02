@@ -12,13 +12,14 @@ import {
 import { Link } from 'react-router-native';
 import BackButton from '../_common/back';
 import * as authService from '../../services/authService';
+import jwt_decode from 'jwt-decode';
 
 const localToken = "token";
 
 class Login extends Component {
     state = {
-        email: '',
-        password: '',
+        email: 'admin@admin.com',
+        password: 'password123',
     };
 
     constructor(props) {
@@ -41,14 +42,18 @@ class Login extends Component {
         if (email && password) {
             authService.AdminLogin(email, password)
                 .then(res => {
-                    console.log(res.data);
                     if (res.data) {
                         AsyncStorage.setItem(localToken, res.data);
-                        this.props.history.push("/dashboard");
+                        var decoded = jwt_decode(res.data);
+                        if (decoded.role == "Admin") {
+                            this.props.history.push("/dashboard");
+                        } else {
+                            this.props.history.push("/mealplanner");
+                        }
                     } else {
                         alert("Log in failed!")
                     }
-                });
+                }).catch(error => alert(error));
         }
     };
 

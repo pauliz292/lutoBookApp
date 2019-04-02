@@ -35,7 +35,7 @@ class Home extends Component {
                 </View>
                 <View style={{ height: '10%'}}>
                     <View style={styles.box}>
-                        <Link to="/dashboard" style={{ margin: 10 }}>
+                        <Link to="/login" style={{ margin: 10 }}>
                             <Text style={styles.text}>For Capstone Usage 2019 - AMA Computer College</Text>
                         </Link>
                     </View>

@@ -32,15 +32,15 @@ export default class App extends Component {
     return (
       <NativeRouter>
         <View>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/dashboard" component={Admin} />
-          <Route path="/recipes" component={Recipes} />
-          <Route path="/location" component={LocationPage} />
-          <Route path="/mealplanner" component={Mealplanner} />
-          <Route path="/admin/ingredientsform" component={IngredientsForm} />
-          <Route path="/admin/locationsform" component={LocationsForm} />
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/dashboard" component={Admin} />
+            <Route path="/recipes" component={Recipes} />
+            <Route path="/location" component={LocationPage} />
+            <Route path="/mealplanner" component={Mealplanner} />
+            <Route path="/admin/ingredientsform" component={IngredientsForm} />
+            <Route path="/admin/locationsform" component={LocationsForm} /> 
         </View>
       </NativeRouter>
     );
