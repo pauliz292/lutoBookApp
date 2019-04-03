@@ -10,7 +10,7 @@ class Admin extends Component {
         recipe:
             { 
                 id:1, 
-                name:"Melon Shake", 
+                name:"", 
                 description:"", 
                 instruction:"",
                 categoryId:1,
