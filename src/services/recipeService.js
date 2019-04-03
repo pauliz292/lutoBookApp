@@ -1,8 +1,10 @@
-import { apiEndPoint } from '../src/config.json';
+import { apiEndPoint } from '../config.json';
+import http from '../services/httpService';
+
+const api = apiEndPoint + "api/recipes/";
 
 export function GetRecipes() {
-    const api = apiEndPoint;
-    console.log(api);
+    return http.get(api);
 }
 
 export function SearchRecipe(searchQuery) {

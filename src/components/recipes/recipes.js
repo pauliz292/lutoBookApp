@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SearchBar, Image } from 'react-native-elements';
 
+import * as recipeService from '../../services/recipeService';
+
 // styles import
 //import styles from './styles';
 import BackButton from '../_common/back';
@@ -10,6 +12,11 @@ import RecipesCard from './recipesCard';
 class Recipes extends Component {
     state = {
         search: ''
+    };
+
+    async componentDidMount() {
+        let { data: recipes} = await recipeService.GetRecipes();
+        console.log(recipes);
     };
 
     updateSearch = search => {
