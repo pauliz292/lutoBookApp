@@ -26,7 +26,7 @@ class Organic extends Component {
 
     getRecipes = async () => {
         try {
-            await recipeService.GetRecipesByMealType("Organic")
+            await recipeService.GetRecipesByMealType("organic")
                 .then(resp => {
                     console.log(resp);
                     this.setState({ recipes: resp.data })

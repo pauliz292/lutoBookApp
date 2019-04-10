@@ -134,6 +134,9 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-image-resizer')
+    implementation project(':react-native-image-picker')
+    implementation project(':react-native-fs')
     implementation project(':react-native-webview')
     implementation project(':react-native-reanimated')
     implementation project(':react-native-gesture-handler')

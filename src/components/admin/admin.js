@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Picker } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Picker, Image } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import { Link } from 'react-router-native';
 import BackButton from '../_common/back';
+import PhotoUpload from 'react-native-photo-upload';
 
 import * as recipeService from '../../services/recipeService';
 
@@ -76,6 +77,26 @@ class Admin extends Component {
     Form = props => {
         return (
             <React.Fragment>
+                <PhotoUpload
+                    onPhotoSelect={avatar => {
+                        if (avatar) {
+                            console.log('Image base64 string: ', avatar)
+                        }
+                    }}
+                >
+                    <Image 
+                        style={{
+                            paddingVertical: 30,
+                            width: 150,
+                            height: 150,
+                            borderRadius: 75
+                        }}
+                        resizeMode='cover'
+                        source={{
+                            uri: 'https://www.sparklabs.com/forum/styles/comboot/theme/images/default_avatar.jpg'
+                        }}
+                    />
+                </PhotoUpload>
                 <View style={styles.input}>
                     <Text style={styles.label}>Name:</Text>
                     <Input 
