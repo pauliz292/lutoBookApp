@@ -8,6 +8,8 @@ import {
 import { Input, Button } from 'react-native-elements';
 import { Link } from 'react-router-native';
 
+import * as ingredientsService from '../../services/ingredients';
+
 class IngredientsForm extends Component {
     state = {
         ingredients: [
@@ -19,20 +21,30 @@ class IngredientsForm extends Component {
         ]
     };
 
-    setName = () => {
-
+    setName = name => {
+        let ingredients = {...this.state.ingredients};
+        ingredients.name = name;
+        this.setState({ ingredients })
     };
 
-    setQty = () => {
-
+    setQty = qty => {
+        let ingredients = {...this.state.ingredients};
+        ingredients.qty = qty;
+        this.setState({ ingredients })
     };
 
-    setUnit = () => {
-
+    setUnit = unit => {
+        let ingredients = {...this.state.ingredients};
+        ingredients.unit = unit;
+        this.setState({ ingredients })
     };
 
-    handleSave = () => {
-
+    handleSave = async () => {
+        try {
+            await ingredientsService.AddIngredients(this.state.ingredients);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     Form = props => {

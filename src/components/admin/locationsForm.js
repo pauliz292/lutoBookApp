@@ -8,6 +8,8 @@ import {
 import { Input, Button } from 'react-native-elements';
 import { Link } from 'react-router-native';
 
+import * as locationsService from '../../services/locations';
+
 class LocationsForm extends Component {
     state = {
         location: [
@@ -18,16 +20,24 @@ class LocationsForm extends Component {
         ]
     };
 
-    setName = () => {
-
+    setName = name => {
+        let location = {...this.state.location};
+        location.name = name;
+        this.setState({ location })
     };
 
-    setAddress = () => {
-
+    setAddress = address => {
+        let location = {...this.state.location};
+        location.address = address;
+        this.setState({ location })
     };
 
-    handleSave = () => {
-
+    handleSave = async () => {
+        try {
+            await locationsService.AddLocations(this.state.location);
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     Form = props => {
