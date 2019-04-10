@@ -5,11 +5,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview'
 import { Link } from 'react-router-native';
 import BackButton from '../_common/back';
 
+import * as recipeService from '../../services/recipeService';
+
 class Admin extends Component {
     state = {
         recipe:
             { 
-                id:1, 
                 name:"", 
                 description:"", 
                 instruction:"",
@@ -17,22 +18,19 @@ class Admin extends Component {
                 mealtypeId:1,
                 tutorialUrl:"",
                 image:"",
-                ingredients:[
-                    {
-                        name: "",
-                        qty: 0,
-                        unit: ""
-                    }
-                ],
-                locations:[
-                    {
-                        name: "",
-                        address: ""
-                    }
-                ],
             },
         mealType: [],
         category:[],
+    };
+
+    addRecipe = async () => {
+        try {
+            let recipe = this.state.recipe;
+            console.log(recipe);
+            await recipeService.AddRecipe(recipe);   
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     setName = name => {
@@ -72,7 +70,7 @@ class Admin extends Component {
     };
 
     handleSaveRecipe = () => {
-        console.log(this.state.recipe);
+        this.addRecipe();
     };
 
     Form = props => {
