@@ -1,7 +1,5 @@
 import { apiEndPoint } from '../config.json';
 import http from '../services/httpService';
-import * as ingredientsService from '../services/ingredients';
-import * as locationsService from '../services/locations';
 
 const api = apiEndPoint + "api/recipes/";
 
@@ -9,35 +7,37 @@ export function GetRecipes() {
     return http.get(api);
 }
 
-export function SearchRecipe(searchQuery) {
+export function SearchRecipe() {
     
 }
 
-export function GetRecipesByMealType(type) {
+export function GetRecipesByMealType() {
     return http.get(api);
 }
 
-export function GetRecipesByCategory(name) {
+export function GetRecipesByCategory() {
     
 }
 
 export function AddRecipe(recipe) {
+    console.log(recipe);
     return http.post(api, {
         name: recipe.name,
         description: recipe.description,
         instruction: recipe.instruction,
         tutorialurl: recipe.tutorialUrl,
-        catergoryid: recipe.catergoryId,
+        categoryid: recipe.categoryId,
         mealtypeid: recipe.mealtypeId,
         image: recipe.image,
-        ingredients: recipe.ingredients
+        ingredients: recipe.ingredients,
+        servingsize: recipe.serving
     });
 }
 
-export function UpdateRecipe(id) {
+export function UpdateRecipe() {
     
 }
 
-export function DeleteRecipe(id) {
+export function DeleteRecipe() {
     
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Input, Button } from 'react-native-elements';
-import { Link } from 'react-router-native';
+import BackButton from '../_common/back';
 
 import * as authService from '../../services/authService';
 
@@ -122,9 +122,7 @@ class Register extends Component {
                     setPhoneNumber={this.setPhoneNumber}
                 />
                 <View style={{ height: 50, alignItems: 'center'}}>
-                    <Link to="/dashboard" style={{ marginTop: 10 }}>
-                        <Text style={{ color: 'powderblue', fontWeight: '400' }}>Back to Dashboard</Text>
-                    </Link>
+                    <BackButton />
                 </View>
             </View>
         );

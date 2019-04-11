@@ -18,6 +18,7 @@ class Admin extends Component {
                 categoryId:1,
                 mealtypeId:1,
                 image:"",
+                serving:"",
                 ingredients:"",
             },
         mealType: [],
@@ -27,7 +28,6 @@ class Admin extends Component {
     addRecipe = async () => {
         try {
             let recipe = this.state.recipe;
-            console.log(recipe);
             await recipeService.AddRecipe(recipe);   
         } catch (error) {
             console.log(error);
@@ -55,6 +55,12 @@ class Admin extends Component {
     setTutorialUrl = url => {
         let recipe = {...this.state.recipe};
         recipe.tutorialUrl = url;
+        this.setState({ recipe })
+    };
+
+    setServing = serving => {
+        let recipe = {...this.state.recipe};
+        recipe.serving = serving;
         this.setState({ recipe })
     };
 
@@ -86,7 +92,6 @@ class Admin extends Component {
                 <PhotoUpload
                     onPhotoSelect={image => {
                         if (image) {
-                            console.log('Image base64 string: ', image)
                             let recipe = {...this.state.recipe};
                             recipe.image = image;
                             this.setState({ recipe })
@@ -135,8 +140,16 @@ class Admin extends Component {
                     />
                 </View>
                 <View style={styles.input}>
+                    <Text style={styles.label}>Serving:</Text>
+                    <Input 
+                        value={props.serving}
+                        onChangeText={props.setServing}
+                    />
+                </View>
+                <View style={styles.input}>
                     <Text style={styles.label}>Ingredients:</Text>
                     <Input 
+                        multiline={true}
                         value={props.ingredients}
                         onChangeText={props.setIngredients}
                     />
@@ -147,9 +160,9 @@ class Admin extends Component {
                         selectedValue={props.categoryId}
                         style={{height: 50, width: 200}}
                         onValueChange={props.storeCategory}>
-                        <Picker.Item label="Luzon" value="-1" />
-                        <Picker.Item label="Visayas" value="-2" />   
-                        <Picker.Item label="Mindanao" value="-3" />
+                        <Picker.Item label="Luzon" value="1" />
+                        <Picker.Item label="Visayas" value="2" />   
+                        <Picker.Item label="Mindanao" value="3" />
                     </Picker>
                 </View>
                 <View style={styles.dropdown}>
@@ -158,10 +171,10 @@ class Admin extends Component {
                         selectedValue={props.mealTypeId}
                         style={{height: 50, width: 200}}
                         onValueChange={ props.storeMealType }>
-                        <Picker.Item label="Organic" value="-1" />
-                        <Picker.Item label="Entree" value="-2" />   
-                        <Picker.Item label="Sides" value="-3" />
-                        <Picker.Item label="Desserts" value="-4" />  
+                        <Picker.Item label="Organic" value="1" />
+                        <Picker.Item label="Entree" value="2" />   
+                        <Picker.Item label="Sides" value="3" />
+                        <Picker.Item label="Desserts" value="4" />  
                     </Picker>
                 </View>
                 <View style={styles.input}>
@@ -184,6 +197,7 @@ class Admin extends Component {
                     name={recipe.name}
                     description={recipe.description}
                     instruction={recipe.instruction}
+                    serving={recipe.serving}
                     tutorialUrl={recipe.tutorialUrl}
                     ingredients={recipe.ingredients}
                     setName={this.setName}
@@ -191,6 +205,7 @@ class Admin extends Component {
                     setInstruction={this.setInstruction}
                     setTutorialUrl={this.setTutorialUrl}
                     setIngredients={this.setIngredients}
+                    setServing={this.setServing}
                     />
                 <View style={{ height: 50, alignItems: 'center'}}>
                     <BackButton />
@@ -204,7 +219,7 @@ export default Admin;
 
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('window').height,
+        // height: Dimensions.get('window').height,
         paddingRight: 20,
         paddingLeft: 20,
     },

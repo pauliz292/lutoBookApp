@@ -17,15 +17,6 @@ import LocationPage from './src/components/locationService/marketLocation';
 import Recipes from './src/components/recipes/recipes';
 import Mealplanner from './src/components/mealplanner/mealplanner';
 import Admin from './src/components/admin/admin';
-import IngredientsForm from './src/components/admin/ingredientsForm';
-import LocationsForm from './src/components/admin/locationsForm';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
 export default class App extends Component {
   render() {
@@ -39,8 +30,6 @@ export default class App extends Component {
             <Route path="/recipes" component={Recipes} />
             <Route path="/location" component={LocationPage} />
             <Route path="/mealplanner" component={Mealplanner} />
-            <Route path="/admin/ingredientsform" component={IngredientsForm} />
-            <Route path="/admin/locationsform" component={LocationsForm} /> 
         </View>
       </NativeRouter>
     );
