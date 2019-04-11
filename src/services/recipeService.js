@@ -28,7 +28,9 @@ export function AddRecipe(recipe) {
         instruction: recipe.instruction,
         tutorialurl: recipe.tutorialUrl,
         catergoryid: recipe.catergoryId,
-        mealtypeid: recipe.mealtypeId
+        mealtypeid: recipe.mealtypeId,
+        image: recipe.image,
+        ingredients: recipe.ingredients
     });
 }
 

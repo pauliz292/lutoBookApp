@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, Picker, Image } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
-import { Link } from 'react-router-native';
 import BackButton from '../_common/back';
 import PhotoUpload from 'react-native-photo-upload';
 
@@ -15,10 +14,11 @@ class Admin extends Component {
                 name:"", 
                 description:"", 
                 instruction:"",
+                tutorialUrl:"",
                 categoryId:1,
                 mealtypeId:1,
-                tutorialUrl:"",
                 image:"",
+                ingredients:"",
             },
         mealType: [],
         category:[],
@@ -58,6 +58,12 @@ class Admin extends Component {
         this.setState({ recipe })
     };
 
+    setIngredients = ingredients => {
+        let recipe = {...this.state.recipe};
+        recipe.ingredients = ingredients;
+        this.setState({ recipe })
+    };
+
     storeCategory = value => {
         let recipe = {...this.state.recipe};
         recipe.categoryId = value;
@@ -78,18 +84,21 @@ class Admin extends Component {
         return (
             <React.Fragment>
                 <PhotoUpload
-                    onPhotoSelect={avatar => {
-                        if (avatar) {
-                            console.log('Image base64 string: ', avatar)
+                    onPhotoSelect={image => {
+                        if (image) {
+                            console.log('Image base64 string: ', image)
+                            let recipe = {...this.state.recipe};
+                            recipe.image = image;
+                            this.setState({ recipe })
                         }
                     }}
                 >
                     <Image 
                         style={{
                             paddingVertical: 30,
-                            width: 150,
+                            width: 450,
                             height: 150,
-                            borderRadius: 75
+                            backgroundColor: 'skyblue',
                         }}
                         resizeMode='cover'
                         source={{
@@ -125,6 +134,13 @@ class Admin extends Component {
                         onChangeText={props.setTutorialUrl}
                     />
                 </View>
+                <View style={styles.input}>
+                    <Text style={styles.label}>Ingredients:</Text>
+                    <Input 
+                        value={props.ingredients}
+                        onChangeText={props.setIngredients}
+                    />
+                </View>
                 <View style={styles.dropdown}>
                     <Text style={styles.label}>Category:</Text>
                     <Picker
@@ -142,20 +158,11 @@ class Admin extends Component {
                         selectedValue={props.mealTypeId}
                         style={{height: 50, width: 200}}
                         onValueChange={ props.storeMealType }>
-                        <Picker.Item label="Breakfast" value="-1" />
-                        <Picker.Item label="Lunch" value="-2" />   
-                        <Picker.Item label="Dinner" value="-3" />  
+                        <Picker.Item label="Organic" value="-1" />
+                        <Picker.Item label="Entree" value="-2" />   
+                        <Picker.Item label="Sides" value="-3" />
+                        <Picker.Item label="Desserts" value="-4" />  
                     </Picker>
-                </View>
-                <View style={styles.linkContainer}>
-                    <Link to="/admin/ingredientsform"> 
-                        <Text style={styles.linkText}>Add Ingredients</Text>
-                    </Link>
-                </View>
-                <View style={styles.linkContainer}>
-                    <Link to="/admin/locationsform"> 
-                        <Text style={styles.linkText}>Add Location</Text>
-                    </Link>
                 </View>
                 <View style={styles.input}>
                     <Button title="Save" onPress={this.handleSaveRecipe} />
@@ -178,10 +185,12 @@ class Admin extends Component {
                     description={recipe.description}
                     instruction={recipe.instruction}
                     tutorialUrl={recipe.tutorialUrl}
+                    ingredients={recipe.ingredients}
                     setName={this.setName}
                     setDescription={this.setDescription}
                     setInstruction={this.setInstruction}
                     setTutorialUrl={this.setTutorialUrl}
+                    setIngredients={this.setIngredients}
                     />
                 <View style={{ height: 50, alignItems: 'center'}}>
                     <BackButton />
