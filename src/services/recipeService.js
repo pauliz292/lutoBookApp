@@ -11,8 +11,8 @@ export function SearchRecipe() {
     
 }
 
-export function GetRecipesByMealType() {
-    return http.get(api);
+export function GetRecipesByMealType(type) {
+    return http.get(api + "meal-type/" + type);
 }
 
 export function GetRecipesByCategory() {
