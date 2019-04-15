@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Card, Button, Icon, ListItem } from 'react-native-elements';
+import { apiEndPoint } from '../../config.json';
 
 import * as recipeService from '../../services/recipeService';
 
@@ -10,13 +11,13 @@ class Organic extends Component {
             {
                 id:1,
                 name:"Matcha Cake",
-                description:"Matcha chocolate"
+                description:"Matcha chocolate",
             },
             {
                 id:2,
                 name:"Mango Juice",
                 description:"Mango crushed"
-            }
+            },
         ]
     };
 
@@ -38,6 +39,7 @@ class Organic extends Component {
 
     render() {
         const { recipes } = this.state;
+        // let url = apiEndPoint + recipes.recipePhoto.url
 
         return (
             <ScrollView>
@@ -55,7 +57,7 @@ class Organic extends Component {
                                     />
                                 </View>
                             }
-                            leftAvatar={{ source: { uri: recipe.recipePhoto }}} />
+                            leftAvatar={{ source: { uri: url }}} />
                     ))}
                 </Card>
             </ScrollView>

@@ -24,11 +24,11 @@ class Mealplanner extends Component {
 
     async componentDidMount() {
         await this.getMenu();
-        console.log(this.state.menus)
     }
     
     HandleRefresh = () => {
-        alert('Refresh Planner');
+        let { userId } = this.props.location.state;
+        mealService.UpdatePlanner(userId);
     };
 
     CardItem = props => {
@@ -48,7 +48,7 @@ class Mealplanner extends Component {
                                             to={{
                                             pathname: '/recipedetails',
                                             state: {
-                                                recipe: recipe.id
+                                                recipe: recipe.recipe
                                             }
                                         }}>
                                             <Text style={{ fontSize: 18, color: 'blue' }}>{recipe.recipe.name}</Text>
@@ -62,7 +62,7 @@ class Mealplanner extends Component {
                                             to={{
                                             pathname: '/recipedetails',
                                             state: {
-                                                recipe: recipe.id
+                                                recipe: recipe.recipe
                                             }
                                         }}>
                                             <Text style={{ fontSize: 18, color: 'blue' }}>{recipe.recipe.name}</Text>
@@ -76,7 +76,7 @@ class Mealplanner extends Component {
                                             to={{
                                             pathname: '/recipedetails',
                                             state: {
-                                                recipe: recipe.id
+                                                recipe: recipe.recipe
                                             }
                                         }}>
                                             <Text style={{ fontSize: 18, color: 'blue' }}>{recipe.recipe.name}</Text>
