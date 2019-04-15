@@ -55,7 +55,7 @@ class Organic extends Component {
                                     />
                                 </View>
                             }
-                            leftAvatar={{ source: { uri: 'https://picsum.photos/g/100/' }}} />
+                            leftAvatar={{ source: { uri: recipe.recipePhoto }}} />
                     ))}
                 </Card>
             </ScrollView>

@@ -17,6 +17,7 @@ import LocationPage from './src/components/locationService/marketLocation';
 import Recipes from './src/components/recipes/recipes';
 import Mealplanner from './src/components/mealplanner/mealplanner';
 import Admin from './src/components/admin/admin';
+import RecipeDetails from './src/components/mealplanner/recipeDetails';
 
 export default class App extends Component {
   render() {
@@ -30,6 +31,7 @@ export default class App extends Component {
             <Route path="/recipes" component={Recipes} />
             <Route path="/location" component={LocationPage} />
             <Route path="/mealplanner" component={Mealplanner} />
+            <Route path="/recipedetails" component={RecipeDetails} />
         </View>
       </NativeRouter>
     );

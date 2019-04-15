@@ -17,7 +17,7 @@ const localToken = "token";
 
 class Login extends Component {
     state = {
-        email: 'admin@admin.com',
+        email: 'paul@user.com',
         password: 'password123',
     };
 
@@ -47,7 +47,13 @@ class Login extends Component {
                         if (decoded.role == "Admin") {
                             this.props.history.push("/dashboard");
                         } else {
-                            this.props.history.push("/mealplanner");
+                            let userId = decoded.nameid;
+                            this.props.history.push({
+                                pathname: "/mealplanner",
+                                state: {
+                                    userId: userId
+                                }
+                            });
                         }
                     } else {
                         alert("Log in failed!")
