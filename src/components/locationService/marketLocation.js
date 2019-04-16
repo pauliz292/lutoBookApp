@@ -1,20 +1,35 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { WebView } from 'react-native-webview';
-import BackButton from '../_common/back';
+import MapView, { Marker } from 'react-native-maps';
 
 class LocationPage extends Component {
+    state = {
+        region: {},
+        marker: {
+            lat: 7.0740632,
+            lng: 125.6200578,
+        }
+    };
+
+    onRegionChange = (region) => {
+        this.setState({ region });
+    };
+
     componentDidMount() {
-        // let geoOptions = {
-        //     enableHighAccuracy: true,
-        //     timeOut: 20000,
-        //     maximumAge: 60 * 60 * 24
-        // };
         navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
     }
 
     geoSuccess = position => {
-        console.log(position.coords.longitude, position.coords.latitude);
+        const { latitude, longitude } = {...position.coords}
+        const { coords } = position;
+        const region = {
+            latitude,
+            longitude,
+            latitudeDelta: latitude,
+            longitudeDelta: longitude
+        }
+        this.map.animateToRegion(region);
+        this.setState({ region, marker: coords });
     };
 
     geoError = err => {
@@ -22,12 +37,22 @@ class LocationPage extends Component {
     };
 
     render() {
+        const {region} = this.state;
+
         return (
             <View style={styles.wrapper}>
-                <View style={{ height: 30 }}>
-                    <BackButton />
-                </View>
-                {/* <WebView source={{ uri: 'https://www.google.com/maps/' }} /> */}
+                <MapView
+                    // region={this.state.region}
+                    ref={map => {this.map = map}}
+                    style={styles.map}
+                    zoomEnabled={true}
+                    minZoomLevel={15}
+                    >
+                    <Marker
+                        title="Current Location"
+                        coordinate={{ latitude: region.latitude, longitude: region.longitude }}
+                    />
+                </MapView>
             </View>
         );
     }
@@ -41,4 +66,11 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
     },
+    map: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        position: 'absolute',
+    },  
 })
