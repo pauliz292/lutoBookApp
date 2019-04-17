@@ -4,7 +4,12 @@ import MapView, { Marker } from 'react-native-maps';
 
 class LocationPage extends Component {
     state = {
-        region: {},
+        region: {
+            latitude: 0,
+            longitude: 0,
+            latitudeDelta: 0,
+            longitudeDelta: 0,
+        },
         marker: {
             lat: 7.0740632,
             lng: 125.6200578,
@@ -21,15 +26,15 @@ class LocationPage extends Component {
 
     geoSuccess = position => {
         const { latitude, longitude } = {...position.coords}
-        const { coords } = position;
         const region = {
             latitude,
             longitude,
             latitudeDelta: latitude,
             longitudeDelta: longitude
         }
+        console.log(region);
         this.map.animateToRegion(region);
-        this.setState({ region, marker: coords });
+        this.setState({ region });
     };
 
     geoError = err => {
@@ -42,7 +47,7 @@ class LocationPage extends Component {
         return (
             <View style={styles.wrapper}>
                 <MapView
-                    // region={this.state.region}
+                    initialRegion={region}
                     ref={map => {this.map = map}}
                     style={styles.map}
                     zoomEnabled={true}
