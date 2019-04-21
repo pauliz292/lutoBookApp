@@ -17,8 +17,8 @@ const localToken = "token";
 
 class Login extends Component {
     state = {
-        email: 'jason@admin.com',
-        password: 'password123',
+        email: '',
+        password: '',
     };
 
     constructor(props) {
@@ -56,9 +56,9 @@ class Login extends Component {
                             });
                         }
                     } else {
-                        alert("Log in failed!")
+                        alert("Log in failed! Check username or password.")
                     }
-                }).catch(error => alert(error));
+                }).catch(error => alert('Account does not exist'));
         }
     };
 

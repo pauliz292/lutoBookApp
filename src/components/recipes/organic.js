@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { Card, Button, Icon, ListItem } from 'react-native-elements';
+import { Card, Button, Icon, ListItem, Linking } from 'react-native-elements';
 
 import * as recipeService from '../../services/recipeService';
 import { apiEndPoint } from '../../config.json';
@@ -12,6 +12,7 @@ class Organic extends Component {
                 id:1,
                 name:"Matcha Cake",
                 description:"Matcha chocolate",
+                tutorialUrl: "https://www.google.com",
                 recipePhoto: {
                     id: 1,
                     url: "https://picsum.photos/200/300"
@@ -21,6 +22,7 @@ class Organic extends Component {
                 id:2,
                 name:"Mango Juice",
                 description:"Mango crushed",
+                tutorialUrl: "https://www.google.com",
                 recipePhoto: {
                     id: 1,
                     url: "https://picsum.photos/200/300"
@@ -31,6 +33,16 @@ class Organic extends Component {
 
     componentDidMount() {
         this.getRecipes();
+    };
+
+    openUrl = () => {
+        Linking.canOpenURL(this.state.recipes.tutorialUrl).then(supported => {
+            if (supported) {
+            Linking.openURL(this.state.recipes.tutorialUrl);
+            } else {
+            console.log("Don't know how to open URI: " + this.state.recipes.tutorialUrl);
+            }
+        });
     };
 
     getRecipes = async () => {
@@ -59,9 +71,11 @@ class Organic extends Component {
                             subtitle={
                                 <View style={{ height: 50 }}>
                                     <Text>{recipe.description}</Text>
-                                    <Button
-                                        title="Clear button"
-                                    />
+                                    <Text>{recipe.tutorialUrl}</Text>
+                                    {/* <Button
+                                        title="Tutorial"
+                                        onPress={this.openUrl}
+                                    /> */}
                                 </View>
                             }
                             leftAvatar={{ source: { uri: apiEndPoint + recipe.recipePhoto.url }}} />

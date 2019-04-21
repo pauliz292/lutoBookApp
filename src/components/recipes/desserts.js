@@ -12,6 +12,7 @@ class Organic extends Component {
                 id:1,
                 name:"Matcha Cake",
                 description:"Matcha chocolate",
+                tutorialUrl: "https://www.google.com",
                 recipePhoto: {
                     id: 1,
                     url: "https://picsum.photos/200/300"
@@ -21,6 +22,7 @@ class Organic extends Component {
                 id:2,
                 name:"Mango Juice",
                 description:"Mango crushed",
+                tutorialUrl: "https://www.google.com",
                 recipePhoto: {
                     id: 2,
                     url: "https://picsum.photos/200/300"
@@ -60,9 +62,10 @@ class Organic extends Component {
                             subtitle={
                                 <View style={{ height: 50 }}>
                                     <Text>{recipe.description}</Text>
-                                    <Button
+                                    <Text>{recipe.tutorialUrl}</Text>
+                                    {/* <Button
                                         title="Clear button"
-                                    />
+                                    /> */}
                                 </View>
                             }
                             leftAvatar={{ source: { uri: apiEndPoint + recipe.recipePhoto.url }}} />

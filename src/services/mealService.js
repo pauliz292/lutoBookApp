@@ -14,10 +14,11 @@ export function GetMenuByUser(userId) {
 }
 
 export function UpdatePlanner(userId) {
-    let day = date.getDay();
     let month = date.getMonth() + 1;
+    let day = date.getDate();
     let year = date.getFullYear();
 
     let _api = api + "generate" + "/" + month + "-" + day + "-" + year + "/" + userId;
+    console.log(_api);
     http.post(_api);
 }

@@ -29,6 +29,7 @@ class Admin extends Component {
         try {
             let recipe = this.state.recipe;
             await recipeService.AddRecipe(recipe);   
+            alert('Recipe Successfully Added!');
         } catch (error) {
             console.log(error);
         }
