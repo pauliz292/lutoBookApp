@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import RNGooglePlaces from 'react-native-google-places';
+import BackButton from '../_common/back';
 
 class LocationPage extends Component {
     state = {
@@ -15,6 +17,16 @@ class LocationPage extends Component {
             lng: 125.6200578,
         }
     };
+
+    openSearchModal() {
+        RNGooglePlaces.openAutocompleteModal()
+        .then((place) => {
+            console.log(place);
+            // place represents user's selection from the
+            // suggestions and it is a simplified Google Place object.
+        })
+        .catch(error => console.log(error.message));  // error is a Javascript Error object
+    }
 
     onRegionChange = (region) => {
         this.setState({ region });
@@ -46,6 +58,12 @@ class LocationPage extends Component {
 
         return (
             <View style={styles.wrapper}>
+                {/* <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => this.openSearchModal()}
+                >
+                    <Text>Pick a Place</Text>
+                </TouchableOpacity> */}
                 <MapView
                     initialRegion={region}
                     ref={map => {this.map = map}}
@@ -58,6 +76,9 @@ class LocationPage extends Component {
                         coordinate={{ latitude: region.latitude, longitude: region.longitude }}
                     />
                 </MapView>
+                <View style={{ height: '10%', alignItems: 'center'}}>
+                    <BackButton />
+                </View>
             </View>
         );
     }
@@ -69,13 +90,18 @@ const styles = StyleSheet.create({
     wrapper: {
         overflow: 'hidden',
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+        height: '100%',
     },
+    // button: {
+    //     height: '10%',
+    //     width: '100%',
+    // },
     map: {
         left: 0,
         right: 0,
         top: 0,
         bottom: 0,
         position: 'absolute',
+        // height: '90%',
     },  
 })

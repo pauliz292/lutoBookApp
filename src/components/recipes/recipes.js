@@ -33,11 +33,11 @@ class Recipes extends Component {
                         style={{ height: 90 }}   
                         source={require('../../static/images/banner.jpeg')}
                     />
-                    <View style={{ height: 20 }}>
+                    <View style={{ height: 20, alignItems: 'center' }}>
                         <BackButton />
                     </View>
                 </View>
-                <View style={{ height: '10%' }}>
+                {/* <View style={{ height: '10%' }}>
                     <SearchBar
                         style={{ height: 20 }}
                         lightTheme={true}
@@ -45,7 +45,7 @@ class Recipes extends Component {
                         onChangeText={this.updateSearch}
                         value={search}
                     />
-                </View>
+                </View> */}
                 <View style={{ height: '70%' }}>
                     <RecipesCard />
                 </View>

@@ -29,6 +29,7 @@ class Mealplanner extends Component {
     HandleRefresh = () => {
         let { userId } = this.props.location.state;
         mealService.UpdatePlanner(userId);
+        this.props.history.push("/");
     };
 
     CardItem = props => {

@@ -12,11 +12,19 @@ class Organic extends Component {
                 id:1,
                 name:"Matcha Cake",
                 description:"Matcha chocolate",
+                recipePhoto: {
+                    id: 1,
+                    url: "https://picsum.photos/200/300"
+                }
             },
             {
                 id:2,
                 name:"Mango Juice",
-                description:"Mango crushed"
+                description:"Mango crushed",
+                recipePhoto: {
+                    id: 2,
+                    url: "https://picsum.photos/200/300"
+                }
             },
         ]
     };
@@ -57,7 +65,7 @@ class Organic extends Component {
                                     />
                                 </View>
                             }
-                            leftAvatar={{ source: { uri: url }}} />
+                            leftAvatar={{ source: { uri: apiEndPoint + recipe.recipePhoto.url }}} />
                     ))}
                 </Card>
             </ScrollView>

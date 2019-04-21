@@ -17,7 +17,7 @@ const localToken = "token";
 
 class Login extends Component {
     state = {
-        email: 'paul@user.com',
+        email: 'jason@admin.com',
         password: 'password123',
     };
 

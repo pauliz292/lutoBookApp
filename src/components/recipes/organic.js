@@ -3,6 +3,7 @@ import { View, Text, ScrollView } from 'react-native';
 import { Card, Button, Icon, ListItem } from 'react-native-elements';
 
 import * as recipeService from '../../services/recipeService';
+import { apiEndPoint } from '../../config.json';
 
 class Organic extends Component {
     state = {
@@ -10,12 +11,20 @@ class Organic extends Component {
             {
                 id:1,
                 name:"Matcha Cake",
-                description:"Matcha chocolate"
+                description:"Matcha chocolate",
+                recipePhoto: {
+                    id: 1,
+                    url: "https://picsum.photos/200/300"
+                }
             },
             {
                 id:2,
                 name:"Mango Juice",
-                description:"Mango crushed"
+                description:"Mango crushed",
+                recipePhoto: {
+                    id: 1,
+                    url: "https://picsum.photos/200/300"
+                }
             }
         ]
     };
@@ -55,7 +64,7 @@ class Organic extends Component {
                                     />
                                 </View>
                             }
-                            leftAvatar={{ source: { uri: 'https://picsum.photos/g/100/' }}} />
+                            leftAvatar={{ source: { uri: apiEndPoint + recipe.recipePhoto.url }}} />
                     ))}
                 </Card>
             </ScrollView>
