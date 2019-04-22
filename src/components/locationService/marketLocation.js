@@ -65,7 +65,7 @@ class LocationPage extends Component {
                     <Text>Pick a Place</Text>
                 </TouchableOpacity> */}
                 <MapView
-                    initialRegion={region}
+                    region={region}
                     ref={map => {this.map = map}}
                     style={styles.map}
                     zoomEnabled={true}
