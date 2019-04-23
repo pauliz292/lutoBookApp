@@ -15,8 +15,7 @@ class Recipes extends Component {
     };
 
     async componentDidMount() {
-        let { data: recipes} = await recipeService.GetRecipes();
-        console.log(recipes);
+        await recipeService.GetRecipes();
     };
 
     updateSearch = search => {

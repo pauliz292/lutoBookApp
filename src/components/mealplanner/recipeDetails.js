@@ -25,22 +25,25 @@ class RecipeDetails extends Component {
 
         return (
             <View style={styles.container}>
-                <View style={{ alignItems: 'center' }}>
-                    <Image 
-                        style={{
-                            paddingVertical: 30,
-                            width: 450,
-                            height: 150,
-                            backgroundColor: 'skyblue',
-                        }}
-                        resizeMode='cover'
-                        source={{uri: url}}
-                    />
-                    <Text style={styles.label}>{recipe.name}</Text>
+                <Image 
+                    style={{
+                        paddingVertical: 30,
+                        width: 450,
+                        height: 150,
+                        backgroundColor: 'skyblue',
+                    }}
+                    resizeMode='cover'
+                    source={{uri: url}}
+                />
+                <View style={{ marginLeft: 10 }}>
+                    <Text style={{ fontSize: 24, fontWeight: '500' }}>{recipe.name}</Text>
                     <Text style={styles.label}>{recipe.description}</Text>
+                    <Text style={styles.label}>{recipe.tutorialUrl}</Text>
+                    <Text style={{ fontWeight: '300', fontSize: 20, }}>Ingredients:</Text>
                     <Text style={styles.label}>{recipe.ingredients}</Text>
+                    <Text style={{ fontWeight: '300', fontSize: 20, }}>Procedure:</Text>
                     <Text style={styles.label}>{recipe.instruction}</Text>
-                    <View>
+                    <View style={{ alignItems: 'center' }}>
                         <BackButton />
                     </View>
                 </View>
@@ -54,10 +57,11 @@ export default RecipeDetails;
 const styles = StyleSheet.create({
     container: {
         width: Dimensions.get('window').width,
-        alignItems: 'center',
     },
     label: {
         fontSize: 18,
         fontWeight: '300',
+        textAlign: 'left',
+        marginTop: 5,
     },
 })

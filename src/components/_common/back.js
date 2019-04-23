@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-native';
 import { Text, View } from 'react-native';
-import FontAwesome, { Icons, IconTypes } from 'react-native-fontawesome';
+import { Icon } from 'react-native-elements';
 
 const BackButton = () => {
     return(
-        <View style={{ alignItems: 'flex-start', height: 20 }}>
+        <View style={{ height: 20, flexDirection: 'row', marginTop: 10 }}>
+            <Icon 
+                name='angle-left'
+                type='font-awesome'
+                color='#3F51B5'
+                iconStyle={{ marginRight: 5 }}
+            />
             <Link to="/">
-                <Text style={{ color: '#3F51B5', margin: 10, fontSize: 15, textAlign: 'left' }}>
-                    <FontAwesome 
-                        type={IconTypes.FAR} 
-                        style={{ fontSize: 15 }}>
-                        {Icons.arrowLeft}
-                    </FontAwesome>
+                <Text style={{ color: '#3F51B5', fontSize: 17, textAlign: 'left' }}>
                     Back to Home
                 </Text>
             </Link>

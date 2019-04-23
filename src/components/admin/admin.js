@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Picker, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Picker, Image, AsyncStorage } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
-import BackButton from '../_common/back';
 import PhotoUpload from 'react-native-photo-upload';
 
 import * as recipeService from '../../services/recipeService';
@@ -23,6 +22,17 @@ class Admin extends Component {
             },
         mealType: [],
         category:[],
+    };
+
+    handleLogOut = async () => {
+        try {
+            await AsyncStorage.removeItem('token')
+                .then(() => {
+                    this.props.history.push("/");
+                })
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     addRecipe = async () => {
@@ -209,7 +219,11 @@ class Admin extends Component {
                     setServing={this.setServing}
                     />
                 <View style={{ height: 50, alignItems: 'center'}}>
-                    <BackButton />
+                    <Button 
+                        buttonStyle={{ backgroundColor: 'red', marginTop: 10, }}
+                        title="Log Out"
+                        onPress={this.handleLogOut}
+                    />
                 </View>
             </KeyboardAwareScrollView>
         );

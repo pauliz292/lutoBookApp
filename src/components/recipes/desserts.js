@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
-import { Card, Button, Icon, ListItem } from 'react-native-elements';
+import { Card, Button, ListItem } from 'react-native-elements';
 import { apiEndPoint } from '../../config.json';
+import { Link } from 'react-router-native';
 
 import * as recipeService from '../../services/recipeService';
 
@@ -39,7 +40,6 @@ class Organic extends Component {
         try {
             await recipeService.GetRecipesByMealType("desserts")
                 .then(resp => {
-                    console.log(resp);
                     this.setState({ recipes: resp.data })
                 });
         } catch (error) {
@@ -49,7 +49,6 @@ class Organic extends Component {
 
     render() {
         const { recipes } = this.state;
-        // let url = apiEndPoint + recipes.recipePhoto.url
 
         return (
             <ScrollView>
@@ -62,10 +61,14 @@ class Organic extends Component {
                             subtitle={
                                 <View style={{ height: 50 }}>
                                     <Text>{recipe.description}</Text>
-                                    <Text>{recipe.tutorialUrl}</Text>
-                                    {/* <Button
-                                        title="Clear button"
-                                    /> */}
+                                    <Link to={{
+                                        pathname: '/recipedetails',
+                                        state: {
+                                            recipe: recipe
+                                        }
+                                    }}>
+                                        <Text style={{color: 'blue'}}>See details</Text>
+                                    </Link>
                                 </View>
                             }
                             leftAvatar={{ source: { uri: apiEndPoint + recipe.recipePhoto.url }}} />

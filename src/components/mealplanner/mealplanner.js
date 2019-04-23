@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
-import { Card, Button, Icon, ListItem } from 'react-native-elements';
-import BackButton from '../_common/back';
+import { View, Text, StyleSheet, Dimensions, ScrollView, AsyncStorage } from 'react-native';
+import { Card, Button, ListItem } from 'react-native-elements';
 import { Link } from 'react-router-native';
 import * as mealService from '../../services/mealService';
 
@@ -10,6 +9,17 @@ class Mealplanner extends Component {
         menus: [
             
         ]
+    };
+
+    handleLogOut = async () => {
+        try {
+            await AsyncStorage.removeItem('token')
+                .then(() => {
+                    this.props.history.push("/")
+                })
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     getMenu = async () => {
@@ -100,11 +110,15 @@ class Mealplanner extends Component {
                     <Text style={{ fontSize: 20, fontWeight: '300' }}>Meal Planner</Text>
                 </View>
                 <View style={styles.buttonContainer}>
-                    <BackButton />
                     <Button 
                         style={styles.button}
                         title="Update Planner"
                         onPress={this.HandleRefresh} 
+                    />
+                    <Button 
+                        buttonStyle={{backgroundColor: 'red', marginLeft: 10,}}
+                        title="Log Off"
+                        onPress={this.handleLogOut}
                     />
                 </View>
                 <ScrollView>
@@ -132,7 +146,11 @@ const styles = StyleSheet.create({
     },
     button: { 
         height: 80, 
+        width: 80
+    },
+    buttonCancel: {
+        height: 80, 
         width: 80, 
-        backgroundColor: 'blue',
-    }
+        backgroundColor: 'red',
+    },
 })

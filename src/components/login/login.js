@@ -27,6 +27,28 @@ class Login extends Component {
         this.passwordChange = this.passwordChange.bind(this);
     };
 
+    async componentDidMount() {
+        try {
+            const res = await AsyncStorage.getItem(localToken);
+            if (res) {
+                var decoded = jwt_decode(res);
+                if (decoded.role == "Admin") {
+                    this.props.history.push("/dashboard");
+                } else {
+                    let userId = decoded.nameid;
+                    this.props.history.push({
+                        pathname: "/mealplanner",
+                        state: {
+                            userId: userId
+                        }
+                    });
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     emailChange(email) {
         this.setState({ email: email })
     };
@@ -35,11 +57,11 @@ class Login extends Component {
         this.setState({ password: password })
     };
 
-    handleSubmitLogin = () => {
+    handleSubmitLogin = async () => {
         const { email, password } = this.state;
 
         if (email && password) {
-            authService.AdminLogin(email, password)
+            await authService.AdminLogin(email, password)
                 .then(res => {
                     if (res.data) {
                         AsyncStorage.setItem(localToken, res.data);
