@@ -58,12 +58,12 @@ class LocationPage extends Component {
 
         return (
             <View style={styles.wrapper}>
-                {/* <TouchableOpacity
+                <TouchableOpacity
                     style={styles.button}
                     onPress={() => this.openSearchModal()}
                 >
                     <Text>Pick a Place</Text>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
                 <MapView
                     region={region}
                     ref={map => {this.map = map}}
@@ -92,16 +92,16 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         height: '100%',
     },
-    // button: {
-    //     height: '10%',
-    //     width: '100%',
-    // },
+    button: {
+        height: '10%',
+        width: '100%',
+    },
     map: {
         left: 0,
         right: 0,
-        top: 0,
+        // top: 0,
         bottom: 0,
         position: 'absolute',
-        // height: '90%',
+        height: '90%',
     },  
 })
