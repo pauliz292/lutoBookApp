@@ -12,16 +12,19 @@ class LocationPage extends Component {
             latitudeDelta: 0,
             longitudeDelta: 0,
         },
-        marker: {
-            lat: 7.0740632,
-            lng: 125.6200578,
+        searchedRes: {
+            latitude: 0,
+            longitude: 0,
         }
     };
 
     openSearchModal() {
         RNGooglePlaces.openAutocompleteModal()
         .then((place) => {
-            console.log(place);
+            console.log(place.location);
+            this.setState({ 
+                searchedRes: place.location
+            })
             // place represents user's selection from the
             // suggestions and it is a simplified Google Place object.
         })
@@ -54,15 +57,14 @@ class LocationPage extends Component {
     };
 
     render() {
-        const {region} = this.state;
+        const {region, searchedRes} = this.state;
 
         return (
             <View style={styles.wrapper}>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => this.openSearchModal()}
-                >
-                    <Text>Pick a Place</Text>
+                    onPress={() => this.openSearchModal()}>
+                    <Text style={styles.search}>Tap to Search Markets</Text>
                 </TouchableOpacity>
                 <MapView
                     region={region}
@@ -74,6 +76,10 @@ class LocationPage extends Component {
                     <Marker
                         title="Current Location"
                         coordinate={{ latitude: region.latitude, longitude: region.longitude }}
+                    />
+                    <Marker
+                        title="Current Location"
+                        coordinate={{ latitude: searchedRes.latitude, longitude: searchedRes.longitude }}
                     />
                 </MapView>
                 <View style={{ height: '10%', alignItems: 'center'}}>
@@ -95,6 +101,8 @@ const styles = StyleSheet.create({
     button: {
         height: '10%',
         width: '100%',
+        alignItems: 'center',
+        backgroundColor: '#eee',
     },
     map: {
         left: 0,
@@ -104,4 +112,10 @@ const styles = StyleSheet.create({
         position: 'absolute',
         height: '90%',
     },  
+    search: { 
+        color: 'blue', 
+        fontSize: 18, 
+        textAlign: 'center', 
+        marginTop: 20 
+    }
 })
