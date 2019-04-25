@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
-import BackButton from '../_common/back';
 import { apiEndPoint } from '../../config.json';
+import { Link } from 'react-router-native';
 
 class RecipeDetails extends Component {
     state = {
@@ -21,7 +21,6 @@ class RecipeDetails extends Component {
     render() {
         const {recipe} = this.state;
         let url = apiEndPoint + recipe.recipePhoto.url;
-        console.log(url)
 
         return (
             <View style={styles.container}>
@@ -38,13 +37,16 @@ class RecipeDetails extends Component {
                 <View style={{ marginLeft: 10 }}>
                     <Text style={{ fontSize: 24, fontWeight: '500' }}>{recipe.name}</Text>
                     <Text style={styles.label}>{recipe.description}</Text>
+                    <Text style={styles.label}>Serving Size: {recipe.servingSize}</Text>
                     <Text style={styles.label}>{recipe.tutorialUrl}</Text>
                     <Text style={{ fontWeight: '300', fontSize: 20, }}>Ingredients:</Text>
                     <Text style={styles.label}>{recipe.ingredients}</Text>
                     <Text style={{ fontWeight: '300', fontSize: 20, }}>Procedure:</Text>
                     <Text style={styles.label}>{recipe.instruction}</Text>
                     <View style={{ alignItems: 'center' }}>
-                        <BackButton />
+                        <Link to="/recipes">
+                            <Text style={{ color: '#3F51B5', fontSize: 17, textAlign: 'left' }}>Back</Text>
+                        </Link>
                     </View>
                 </View>
             </View>

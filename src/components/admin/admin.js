@@ -35,11 +35,16 @@ class Admin extends Component {
         }
     };
 
+    clearAll = () => {
+        this.setState({ recipe: '' })
+    };
+
     addRecipe = async () => {
         try {
             let recipe = this.state.recipe;
             await recipeService.AddRecipe(recipe);   
             alert('Recipe Successfully Added!');
+            this.clearAll();
         } catch (error) {
             console.log(error);
         }
