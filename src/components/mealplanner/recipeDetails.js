@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image, ScrollView } from 'react-native';
 import { apiEndPoint } from '../../config.json';
 import { Link } from 'react-router-native';
 
@@ -23,7 +23,7 @@ class RecipeDetails extends Component {
         let url = apiEndPoint + recipe.recipePhoto.url;
 
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <Image 
                     style={{
                         paddingVertical: 30,
@@ -49,7 +49,7 @@ class RecipeDetails extends Component {
                         </Link>
                     </View>
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 }
