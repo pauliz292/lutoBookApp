@@ -123,18 +123,18 @@ class Login extends Component {
         const { email, password } = this.state;
 
         return (
-            <KeyboardAvoidingView style={styles.container}>
-                <View style={styles.container}>
-                    <Text style={styles.text}>Please log in using your credentials.</Text>
+            <View style={styles.container}>
+                <Text style={styles.text}>Please log in using your credentials.</Text>
+                <View style={{ height: '80%' }}>
                     <this.Form  
                         email={email} 
                         password={password} 
                         emailChange={this.emailChange}
                         passwordChange={this.passwordChange}
                         handleSubmitLogin={this.handleSubmitLogin}
-                        />
+                    />
                 </View>
-            </KeyboardAvoidingView>
+            </View>
         );
     }
 }
@@ -143,7 +143,7 @@ export default Login;
 
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('window').height,
+        height: '100%',
         alignItems: 'center'
     },
     heading: {

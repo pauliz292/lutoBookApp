@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, ScrollView } from 'react-native';
+import { Button } from 'react-native-elements';
 import { apiEndPoint } from '../../config.json';
 import { Link } from 'react-router-native';
 
@@ -43,10 +44,12 @@ class RecipeDetails extends Component {
                     <Text style={styles.label}>{recipe.ingredients}</Text>
                     <Text style={{ fontWeight: '300', fontSize: 20, }}>Procedure:</Text>
                     <Text style={styles.label}>{recipe.instruction}</Text>
-                    <View style={{ alignItems: 'center' }}>
-                        <Link to="/recipes">
-                            <Text style={{ color: '#3F51B5', fontSize: 17, textAlign: 'left' }}>Back</Text>
-                        </Link>
+                    <View style={{ alignItems: 'center', marginTop: 15, }}>
+                        <Button 
+                            buttonStyle={{ backgroundColor:'red' }}
+                            title="Back"
+                            onPress={() => { this.props.history.goBack() }}
+                        />
                     </View>
                 </View>
             </ScrollView>
