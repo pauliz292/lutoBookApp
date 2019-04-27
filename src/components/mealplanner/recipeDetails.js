@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, ScrollView } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, Text, StyleSheet, Dimensions, Image, ScrollView, Alert } from 'react-native';
+import { Button, Icon } from 'react-native-elements';
 import { apiEndPoint } from '../../config.json';
-import { Link } from 'react-router-native';
+
+import * as recipeService from '../../services/recipeService';
 
 class RecipeDetails extends Component {
     state = {
@@ -18,6 +19,25 @@ class RecipeDetails extends Component {
             recipe: recipe
         })
     }
+
+    handleDelete = () => {
+        Alert.alert(
+            'Delete Recipe',
+            'Are you sure you want to delete this recipe?',
+            [
+                {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+                },
+                {text: 'OK', onPress: () => {
+                    recipeService.DeleteRecipe(this.state.recipe.id);
+                    this.props.history.goBack();
+                }},
+            ],
+            {cancelable: false},
+            );
+    };
 
     render() {
         const {recipe} = this.state;
@@ -44,9 +64,18 @@ class RecipeDetails extends Component {
                     <Text style={styles.label}>{recipe.ingredients}</Text>
                     <Text style={{ fontWeight: '300', fontSize: 20, }}>Procedure:</Text>
                     <Text style={styles.label}>{recipe.instruction}</Text>
+                    <View>
+                        <Icon 
+                            raised
+                            name="trash"
+                            type="font-awesome"
+                            onPress={this.handleDelete}
+                            color="#f50"
+                        />
+                    </View>
                     <View style={{ alignItems: 'center', marginTop: 15, }}>
                         <Button 
-                            buttonStyle={{ backgroundColor:'red' }}
+                            buttonStyle={{ backgroundColor:'blue' }}
                             title="Back"
                             onPress={() => { this.props.history.goBack() }}
                         />

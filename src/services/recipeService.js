@@ -34,10 +34,6 @@ export function AddRecipe(recipe) {
     });
 }
 
-export function UpdateRecipe() {
-    
-}
-
-export function DeleteRecipe() {
-    
+export function DeleteRecipe(recipeId) {
+    return http.post(api + "toggle/" + recipeId);
 }
