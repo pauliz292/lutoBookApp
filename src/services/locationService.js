@@ -1,7 +1,7 @@
 import http from '../services/httpService';
 
 const api = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?';
-const radius = "&radius=" + 30;
+const radius = "&radius=" + 50;
 const keyword = "&keyword=market&";
 const key = "key=AIzaSyAryGhLxQeNVF9eGAxDdNEf23UKbXLb1Hk";
 
