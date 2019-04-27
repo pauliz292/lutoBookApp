@@ -19,6 +19,8 @@ import Recipes from './src/components/recipes/recipes';
 import Mealplanner from './src/components/mealplanner/mealplanner';
 import Admin from './src/components/admin/admin';
 import RecipeDetails from './src/components/mealplanner/recipeDetails';
+import MarketList from './src/components/locationService/marketList';
+import MapLocation from './src/components/locationService/map';
 
 export default class App extends Component {
   render() {
@@ -31,6 +33,8 @@ export default class App extends Component {
             <Route path="/dashboard" component={Admin} />
             <Route path="/recipes" component={Recipes} />
             <Route path="/location" component={LocationPage} />
+            <Route path="/marketlist" component={MarketList} />
+            <Route path="/map" component={MapLocation} />
             <Route path="/mealplanner" component={Mealplanner} />
             <Route path="/recipedetails" component={RecipeDetails} />
         </Stack>

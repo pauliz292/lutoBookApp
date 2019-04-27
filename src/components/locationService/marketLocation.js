@@ -3,9 +3,21 @@ import { View, StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-nati
 import MapView, { Marker } from 'react-native-maps';
 import RNGooglePlaces from 'react-native-google-places';
 import BackButton from '../_common/back';
+import { Icon } from 'react-native-elements';
+import * as locationService from '../../services/locationService';
 
 class LocationPage extends Component {
     state = {
+        places: [
+            {
+                id:1,
+                geometry: { latitude: 0, longitude: 0},
+            },
+            {
+                id:2,
+                geometry: { latitude: 0, longitude: 0},
+            },
+        ],
         region: {
             latitude: 0,
             longitude: 0,
@@ -18,28 +30,36 @@ class LocationPage extends Component {
         }
     };
 
-    openSearchModal() {
-        RNGooglePlaces.openAutocompleteModal()
-        .then((place) => {
-            console.log(place.location);
-            this.setState({ 
-                searchedRes: place.location
-            })
-            // place represents user's selection from the
-            // suggestions and it is a simplified Google Place object.
-        })
-        .catch(error => console.log(error.message));  // error is a Javascript Error object
-    }
+    // openSearchModal() {
+    //     RNGooglePlaces.openAutocompleteModal()
+    //     .then((place) => {
+    //         console.log(place.location);
+    //         this.setState({ 
+    //             searchedRes: place.location
+    //         })
+    //     })
+    //     .catch(error => console.log(error.message));
+    // }
+
+    openList = () => {
+        const { places } = this.state;
+        this.props.history.push({
+            pathname: "/marketlist",
+            state: {
+                places
+            }
+        });
+    };
 
     onRegionChange = (region) => {
         this.setState({ region });
     };
 
-    componentDidMount() {
-        navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
+    async componentDidMount() {
+        await navigator.geolocation.getCurrentPosition(this.geoSuccess, this.geoError);
     }
 
-    geoSuccess = position => {
+    geoSuccess = async (position) => {
         const { latitude, longitude } = {...position.coords}
         const region = {
             latitude,
@@ -48,6 +68,11 @@ class LocationPage extends Component {
             longitudeDelta: longitude
         }
         console.log(region);
+        await locationService.locateMarkets(region.latitude, region.longitude)
+            .then(res => {
+                this.setState({ places: res.data.results })
+            }).catch(error => console.log(error));
+
         this.map.animateToRegion(region);
         this.setState({ region });
     };
@@ -61,11 +86,16 @@ class LocationPage extends Component {
 
         return (
             <View style={styles.wrapper}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.openSearchModal()}>
-                    <Text style={styles.search}>Tap to Search Markets</Text>
-                </TouchableOpacity>
+                <View style={styles.buttonwrapper}>
+                    <BackButton />
+                    <Icon
+                        name="search"
+                        type="font-awesome"
+                        onPress={this.openList}
+                        color="gray"
+                        iconStyle={{ marginRight: 20 }}
+                    />
+                </View>
                 <MapView
                     region={region}
                     ref={map => {this.map = map}}
@@ -82,9 +112,6 @@ class LocationPage extends Component {
                         coordinate={{ latitude: searchedRes.latitude, longitude: searchedRes.longitude }}
                     />
                 </MapView>
-                <View style={{ height: '10%', alignItems: 'center'}}>
-                    <BackButton />
-                </View>
             </View>
         );
     }
@@ -98,24 +125,21 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         height: '100%',
     },
-    button: {
-        height: '10%',
-        width: '100%',
-        alignItems: 'center',
-        backgroundColor: '#eee',
+    buttonwrapper: { 
+        height: '10%', 
+        flexDirection: 'row', 
+        marginTop: 10, 
+        marginLeft: 20,
+        justifyContent: 'space-between',
     },
     map: {
         left: 0,
         right: 0,
-        // top: 0,
         bottom: 0,
         position: 'absolute',
         height: '90%',
     },  
     search: { 
-        color: 'blue', 
-        fontSize: 18, 
-        textAlign: 'center', 
-        marginTop: 20 
+        marginRight: 20,
     }
 })

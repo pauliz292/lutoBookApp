@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image, ScrollView, Alert, Linking } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import { apiEndPoint } from '../../config.json';
 
@@ -19,6 +19,14 @@ class RecipeDetails extends Component {
             recipe: recipe
         })
     }
+    
+    openLink = () => {
+        try {
+            Linking.openURL(this.state.recipe.tutorialUrl)
+        } catch (error) {
+            alert(error);
+        }
+    };
 
     handleDelete = () => {
         Alert.alert(
@@ -59,7 +67,12 @@ class RecipeDetails extends Component {
                     <Text style={{ fontSize: 24, fontWeight: '500' }}>{recipe.name}</Text>
                     <Text style={styles.label}>{recipe.description}</Text>
                     <Text style={styles.label}>Serving Size: {recipe.servingSize}</Text>
-                    <Text style={styles.label}>{recipe.tutorialUrl}</Text>
+                    <Button 
+                        buttonStyle={{ marginTop: 10, marginBottom: 10, width: 100 }}
+                        title="Tutorial"
+                        onPress={this.openLink}
+                    />
+                    {/* <Text style={styles.label}>{recipe.tutorialUrl}</Text> */}
                     <Text style={{ fontWeight: '300', fontSize: 20, }}>Ingredients:</Text>
                     <Text style={styles.label}>{recipe.ingredients}</Text>
                     <Text style={{ fontWeight: '300', fontSize: 20, }}>Procedure:</Text>

@@ -5,7 +5,7 @@ import { Icon } from 'react-native-elements';
 
 const BackButton = () => {
     return(
-        <View style={{ height: 20, flexDirection: 'row', marginTop: 10 }}>
+        <View style={{ flexDirection: 'row'}}>
             <Icon 
                 name='angle-left'
                 type='font-awesome'
@@ -13,7 +13,7 @@ const BackButton = () => {
                 iconStyle={{ marginRight: 5 }}
             />
             <Link to="/">
-                <Text style={{ color: '#3F51B5', fontSize: 17, textAlign: 'left' }}>
+                <Text style={{ color: '#3F51B5', fontSize: 17}}>
                     Back to Home
                 </Text>
             </Link>
