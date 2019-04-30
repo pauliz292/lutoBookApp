@@ -4,16 +4,10 @@ import {
     Text,
     StyleSheet,
     TextInput,
-    Dimensions,
-    KeyboardAvoidingView,
-    AsyncStorage
 } from 'react-native';
 import { Link } from 'react-router-native';
 import BackButton from '../_common/back';
-import * as authService from '../../services/authService';
-import jwt_decode from 'jwt-decode';
-
-const localToken = "token";
+import * as auth from '../../services/auth';
 
 class Login extends Component {
     state = {
@@ -28,26 +22,27 @@ class Login extends Component {
     };
 
     async componentDidMount() {
-        try {
-            const res = await AsyncStorage.getItem(localToken);
-            if (res) {
-                var decoded = jwt_decode(res);
-                if (decoded.role == "Admin") {
-                    this.props.history.push("/dashboard");
-                } else {
-                    let userId = decoded.nameid;
-                    this.props.history.push({
-                        pathname: "/mealplanner",
-                        state: {
-                            userId: userId
-                        }
-                    });
-                }
-            }
-        } catch (error) {
-            console.log(error);
-        }
+        await this.redirect();
     };
+
+    redirect = async () => {
+        const user = await auth.getCurrentUser();
+
+        if(user == null || user == "undefined")
+            return;
+
+        if (user.role === "Admin") {
+            this.props.history.push("/dashboard");
+        } else {
+            let userId = user.nameid;
+            this.props.history.push({
+                pathname: "/mealplanner",
+                state: {
+                    userId: userId
+                }
+            });
+        }
+    }
 
     emailChange(email) {
         this.setState({ email: email })
@@ -61,26 +56,8 @@ class Login extends Component {
         const { email, password } = this.state;
 
         if (email && password) {
-            await authService.AdminLogin(email, password)
-                .then(res => {
-                    if (res.data) {
-                        AsyncStorage.setItem(localToken, res.data);
-                        var decoded = jwt_decode(res.data);
-                        if (decoded.role == "Admin") {
-                            this.props.history.push("/dashboard");
-                        } else {
-                            let userId = decoded.nameid;
-                            this.props.history.push({
-                                pathname: "/mealplanner",
-                                state: {
-                                    userId: userId
-                                }
-                            });
-                        }
-                    } else {
-                        alert("Log in failed! Check username or password.")
-                    }
-                }).catch(error => alert('Account does not exist'));
+            auth.login(email, password).catch(error => console.log(error));
+            await this.redirect();
         }
     };
 

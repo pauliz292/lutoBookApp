@@ -8,9 +8,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, View} from 'react-native';
 import { NativeRouter, Route} from 'react-router-native';
-import Stack from 'react-router-native-stack';
 import Home from './src/components/home/home';
 import Login from './src/components/login/login';
 import Register from './src/components/login/register';
@@ -26,7 +24,7 @@ export default class App extends Component {
   render() {
     return (
       <NativeRouter>
-        <Stack>
+        <React.Fragment>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
@@ -37,7 +35,7 @@ export default class App extends Component {
             <Route path="/map" component={MapLocation} />
             <Route path="/mealplanner" component={Mealplanner} />
             <Route path="/recipedetails" component={RecipeDetails} />
-        </Stack>
+        </React.Fragment>
       </NativeRouter>
     );
   }

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, ScrollView, AsyncStorage } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ScrollView, AsyncStorage, ActivityIndicator } from 'react-native';
 import { Card, Button, ListItem } from 'react-native-elements';
 import { Link } from 'react-router-native';
 import * as mealService from '../../services/mealService';
 
 class Mealplanner extends Component {
     state = {
-        menus: [
-            
-        ]
+        menus: [],
+        isLoading: false,
     };
 
     handleLogOut = async () => {
@@ -23,23 +22,28 @@ class Mealplanner extends Component {
     };
 
     getMenu = async () => {
+        this.setState({ isLoading: true })
         let { userId } = this.props.location.state;
-        await mealService.GetMenuByUser(userId)
+        const date = new Date();
+        await mealService.GetMenuByUser(userId, date)
             .then(res => {
+                console.log(res.data);
                 this.setState({
-                    menus: res.data
+                    menus: res.data,
+                    isLoading: false
                 });
             });
     };
 
     async componentDidMount() {
         await this.getMenu();
-    }
+    };
     
-    HandleRefresh = () => {
+    HandleRefresh = async () => {
         let { userId } = this.props.location.state;
-        mealService.UpdatePlanner(userId);
-        this.props.history.push("/");
+        const date = new Date();
+        await mealService.UpdatePlanner(userId, date);
+        this.getMenu();
     };
 
     CardItem = props => {
@@ -121,6 +125,9 @@ class Mealplanner extends Component {
                         onPress={this.handleLogOut}
                     />
                 </View>
+                {this.state.isLoading && 
+                <ActivityIndicator size="large" color="#0000ff" />
+                }
                 <ScrollView>
                     <this.CardItem menus={menus}/>
                 </ScrollView>

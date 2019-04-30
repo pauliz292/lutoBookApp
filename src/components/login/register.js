@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import BackButton from '../_common/back';
-
-import * as authService from '../../services/authService';
+import * as auth from '../../services/auth';
 
 class Register extends Component {
     state = {
@@ -49,7 +48,7 @@ class Register extends Component {
     handleSave = async () => {
         try {
             let user = this.state.user;
-            await authService.Register(user)
+            await auth.register(user);
             this.props.history.push("/");
         } catch (error) {
             console.log(error)
