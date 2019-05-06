@@ -5,9 +5,10 @@ const api = apiEndPoint + "api/menus/";
 
 export async function GetMenuByUser(userId, date) {
     let year = date.getFullYear();
+    let day = date.getDate();
     let month = date.getMonth() + 1;
 
-    let _api = api + year + "/" + month + "/" + userId;
+    let _api = api + "/" + month + "-" + day + "-" + year + "/" + userId;
 
     return await http.get(_api);
 }
